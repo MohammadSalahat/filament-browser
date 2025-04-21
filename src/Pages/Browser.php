@@ -101,6 +101,7 @@ class Browser extends Page implements HasTable
                                     'xml' => 'XML',
                                     'txt' => 'TXT',
                                     'html' => 'HTML',
+                                    'htm' => 'HTM',
                                     'blade' => 'BLADE',
                                     'log' => 'LOG',
                                     'md' => 'MD',
@@ -303,6 +304,7 @@ class Browser extends Page implements HasTable
                         "lock",
                         "txt",
                         "html",
+                        "htm",
                         "log",
                         "md",
                     ]) || str($arguments['file']['name'])->contains(['.env', '.git', '.editor']) || empty($arguments['file']['extension'])) ? File::get($arguments['file']['path']) : $arguments['file'],
@@ -318,6 +320,7 @@ class Browser extends Page implements HasTable
                     "lock",
                     "txt",
                     "html",
+                    "htm",
                     "log",
                 ]) || str($arguments['file']['name'])->contains(['.env', '.git', '.editor']) || empty($arguments['file']['extension'])) ? [
                     CodeField::make('content')
@@ -386,6 +389,7 @@ class Browser extends Page implements HasTable
                     "lock",
                     "txt",
                     "html",
+                    "htm",
                     "log",
                     "md",
                 ])) || str($arguments['file']['name'])->contains(['.env', '.git', '.editor']) || empty($arguments['file']['extension']) ? [] : [
@@ -406,6 +410,7 @@ class Browser extends Page implements HasTable
                         "lock",
                         "txt",
                         "html",
+                        "htm",
                         "log",
                         "md",
                     ])) || str($arguments['file']['name'])->contains(['.env', '.git', '.editor']) || empty($arguments['file']['extension']) ? File::put($arguments['file']['path'], $data['content']) : null;
