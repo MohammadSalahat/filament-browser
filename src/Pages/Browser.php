@@ -237,9 +237,9 @@ class Browser extends Page implements HasTable
         ];
     }
 
-    protected static ?string $navigationIcon = 'heroicon-o-folder';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-folder';
 
-    protected static string $view = 'filament-browser::browser';
+    protected string $view = 'filament-browser::browser';
 
     public static function getNavigationLabel(): string
     {
