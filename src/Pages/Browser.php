@@ -2,7 +2,6 @@
 
 namespace TomatoPHP\FilamentBrowser\Pages;
 
-use Creagia\FilamentCodeField\CodeField;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -23,13 +22,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Livewire\Attributes\On;
 use TomatoPHP\FilamentBrowser\Models\Files;
-use TomatoPHP\FilamentDeveloperGate\Traits\DeveloperGateLogoutAction;
-use TomatoPHP\FilamentDeveloperGate\Traits\InteractWithDeveloperGate;
+use Filament\Forms\Components\CodeEditor;
+use Filament\Forms\Components\CodeEditor\Enums\Language;
 
 class Browser extends Page implements HasTable
 {
     use InteractsWithTable;
-    use InteractWithDeveloperGate;
 
 
     public string $language = "php";
@@ -120,12 +118,11 @@ class Browser extends Page implements HasTable
                                 ->required()
                                 ->preserveFilenames()
                                 ->hidden(fn(Get $get) => $get('type') != 'upload'),
-                            CodeField::make('code')
+                            CodeEditor::make('code')
                                 ->label(trans('filament-browser::messages.create.code'))
                                 ->columnSpanFull()
                                 ->required()
-                                ->view('filament-browser::components.code')
-                                ->setLanguage($this->language ?? 'php')
+                                ->language($this->getLanguageClass($this->language))
                                 ->hidden(fn(Get $get) => $get('type') != 'file-code'),
                             MarkdownEditor::make('markdown')
                                 ->label(trans('filament-browser::messages.create.markdown'))
@@ -323,11 +320,10 @@ class Browser extends Page implements HasTable
                     "htm",
                     "log",
                 ]) || str($arguments['file']['name'])->contains(['.env', '.git', '.editor']) || empty($arguments['file']['extension'])) ? [
-                    CodeField::make('content')
+                    CodeEditor::make('content')
                         ->disabled(fn() => !filament('filament-browser')->allowEditFile)
                         ->label(trans('filament-browser::messages.edit.content'))
-                        ->view('filament-browser::components.code')
-                        ->setLanguage($arguments['file']['extension']),
+                        ->language($this->getLanguageClass($arguments['file']['extension'])),
                 ] : (str($arguments['file']['extension'])->contains('md') ? [MarkdownEditor::make('content')->label(trans('filament-browser::messages.edit.content'))->disabled(fn() => !filament('filament-browser')->allowEditFile)] : []));
             })
             ->extraModalFooterActions(function (array $arguments, Action $action) {
@@ -424,5 +420,53 @@ class Browser extends Page implements HasTable
                 }
             })
             ->view('filament-browser::actions.file', ['file' => $file]);
+    }
+
+    public function getLanguageClass($language)
+    {
+        switch ($language) {
+            case 'cpp':
+                return Language::Cpp;
+            case 'c':
+                return Language::Cpp;
+            case 'cxx':
+                return Language::Cpp;
+            case 'sass':
+                return Language::Css;
+            case 'css':
+                return Language::Css;
+            case 'go':
+                return Language::Go;
+            case 'php':
+                return Language::Php;
+            case 'js':
+                return Language::JavaScript;
+            case 'ts':
+                return Language::JavaScript;
+            case 'vue':
+                return Language::JavaScript;
+            case 'json':
+                return Language::Json;
+            case 'java':
+                return Language::Java;
+            case 'yaml':
+                return Language::Yaml;
+            case 'xml':
+                return Language::Xml;
+            case 'html':
+                return Language::Html;
+            case 'htm':
+                return Language::Html;
+            case 'blade':
+                return Language::Html;
+            case 'md':
+                return Language::Markdown;
+            case 'py':
+                return Language::Python;
+            case 'sql':
+                return Language::Sql;
+            default:
+                return Language::Php;
+        }
     }
 }
