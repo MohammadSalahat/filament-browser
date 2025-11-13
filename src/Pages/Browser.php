@@ -49,7 +49,7 @@ class Browser extends Page implements HasTable
                     ->sortable()
             ])
             ->headerActions([
-                \Filament\Tables\Actions\Action::make('create')
+                \Filament\Actions\Action::make('create')
                     ->hidden(fn() => !filament('filament-browser')->allowCreateNewFile)
                     ->label(trans('filament-browser::messages.actions.create'))
                     ->icon('heroicon-o-plus')
@@ -201,7 +201,7 @@ class Browser extends Page implements HasTable
 
                         $this->dispatch('refreshTable');
                     }),
-                \Filament\Tables\Actions\Action::make('home')
+                \Filament\Actions\Action::make('home')
                     ->label(trans('filament-browser::messages.actions.home'))
                     ->icon('heroicon-o-home')
                     ->color('info')
@@ -211,7 +211,7 @@ class Browser extends Page implements HasTable
 
                         $this->dispatch('refreshTable');
                     }),
-                \Filament\Tables\Actions\Action::make('back')
+                \Filament\Actions\Action::make('back')
                     ->label(trans('filament-browser::messages.actions.back'))
                     ->icon('heroicon-o-chevron-left')
                     ->color('warning')
