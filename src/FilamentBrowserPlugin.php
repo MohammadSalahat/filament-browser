@@ -118,6 +118,10 @@ class FilamentBrowserPlugin implements Plugin
         else {
             $this->isActive = true;
         }
+
+        $panel->pages([
+            Browser::class,
+        ]);
     }
 
     public function boot(Panel $panel): void

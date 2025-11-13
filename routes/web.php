@@ -1,9 +1,3 @@
 <?php
 
-
-use Illuminate\Support\Facades\Route;
-use TomatoPHP\FilamentBrowser\Http\Controllers\BrowserController;
-
-
-//Route::post('admin/browser/json', [BrowserController::class, 'index'])->middleware(['web', DeveloperGateMiddleware::class]);
-Route::get('browser/file', [BrowserController::class, 'file']);
+// No routes needed - filament handles everything

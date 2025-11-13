@@ -233,21 +233,7 @@ class Browser extends Page implements HasTable
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('developer_gate_logout')
-                ->action(function () {
-                    session()->forget('developer_password');
-
-                    Notification::make()
-                        ->title(trans('filament-developer-gate::messages.notifications.logout.title'))
-                        ->body(trans('filament-developer-gate::messages.notifications.logout.body'))
-                        ->success()
-                        ->send();
-
-                    return redirect()->to(config('filament-developer-gate.route_prefix') . '/developer-gate');
-                })
-                ->requiresConfirmation()
-                ->color('danger')
-                ->label(trans('filament-developer-gate::messages.logout'))
+            // Developer gate functionality removed
         ];
     }
 
